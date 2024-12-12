@@ -1,0 +1,21 @@
+#include "BluetoothSerial.h"
+
+// Instanciation de l'objet Bluetooth
+BluetoothSerial SerialBT;
+
+void setup() {
+  Serial.begin(115200); // Démarrage du terminal série pour debugging
+  SerialBT.begin("ESP32_Receiver"); // Nom Bluetooth de l'ESP32
+  Serial.println("ESP32 prêt à recevoir les données via Bluetooth...");
+}
+
+void loop() {
+  if (SerialBT.available()) {
+    // Lire les données reçues via Bluetooth
+    String receivedData = SerialBT.readStringUntil('\n');
+    Serial.print("Données reçues : ");
+    Serial.println(receivedData);
+  }
+
+  delay(100); // Petite pause pour réduire l'utilisation du CPU
+} 
